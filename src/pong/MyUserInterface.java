@@ -48,14 +48,14 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface {
         gamePanel.myGamePlayer = this.myGamePlayer;
 
         System.out.println(myName);
-        System.out.println(MyGame.clients);
+//        System.out.println(MyGame.clients);
 
-        if (MyGame.clients.size() > 0){
-            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + "Player 2's" + " Score: " + 0);
-
-        } else if (MyGame.clients.size() > 1){
-            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + MyGame.clients.get(1) + "'s" + " Score: " + 0);
-        }
+//        if (MyGame.clients.size() > 0){
+//            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + "Player 2's" + " Score: " + 0);
+//
+//        } else if (MyGame.clients.size() > 1){
+//            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + MyGame.clients.get(1) + "'s" + " Score: " + 0);
+//        }
 
 
     }

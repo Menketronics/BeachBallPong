@@ -158,7 +158,7 @@ public class Box implements Serializable{
                 // In hole and missed by paddle
 
                 rightPlayerScore += 1;
-                MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
+                MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
                 running= false;
                 System.out.println("In Hole and missed by paddle");
             }
