@@ -21,7 +21,6 @@ public class GamePanel extends JPanel implements GameNet_UserInterface {
     String myName;
     MyGameInput myGameInput;
 
-    JLabel scoreLabel;
 
     MyUserInterface myUserInterface;
 
@@ -65,9 +64,7 @@ public class GamePanel extends JPanel implements GameNet_UserInterface {
         } else {
 
             if (!box.isRunning()) {
-                String str = "Success count=" +
-                        box.playerScore + " Click Mouse to restart";
-                myUserInterface.scoreLabel.setText("Player 1 Score: " + 0 + " " + myName  + "'s Score: " + box.playerScore);
+                String str = "Click Mouse to restart";
                 g.drawString(str, 100, 100);
 
             }

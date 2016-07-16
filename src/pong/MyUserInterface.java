@@ -26,13 +26,9 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface {
     private JMenuItem quit;
     private JMenuItem parameters;
     private JPanel topPanel;
-    public JLabel scoreLabel;
+    static JLabel scoreLabel;
 
     public GamePanel gamePanel;
-
-    ArrayList<String> clients;
-
-
 
     @Override
     public void startUserInterface(GamePlayer player) {
@@ -42,12 +38,6 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface {
         myGameInput.setCmd(MyGameInput.CONNECTING);
         myGamePlayer.sendMessage(myGameInput);
 
-
-
-
-        scoreLabel.setText("jacob" + " Score: " + 0 + " " + "Placeholder" + " Score: " + 0);
-
-
         updateGamePanel();
 
     }
@@ -56,6 +46,17 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface {
         gamePanel.myGameInput = this.myGameInput;
         gamePanel.myName = this.myName;
         gamePanel.myGamePlayer = this.myGamePlayer;
+
+        System.out.println(myName);
+        System.out.println(MyGame.clients);
+
+        if (MyGame.clients.size() > 0){
+            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + "Player 2's" + " Score: " + 0);
+
+        } else if (MyGame.clients.size() > 1){
+            scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + MyGame.clients.get(1) + "'s" + " Score: " + 0);
+        }
+
 
     }
 

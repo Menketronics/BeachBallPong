@@ -9,7 +9,7 @@ import java.util.ArrayList;
  
 public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
 
-    public ArrayList<String> clients = new ArrayList<String>();
+    static public ArrayList<String> clients = new ArrayList<String>();
     public Box box = new Box();
     
     transient GameControl gameControl;
@@ -32,6 +32,7 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         if (myGameInput.command == MyGameInput.CONNECTING && clients.size() < 2)
         {
         	clients.add(myGameInput.name);
+            System.out.println("just added " + myGameInput.name);
 
 
         }

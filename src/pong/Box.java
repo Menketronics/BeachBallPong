@@ -30,7 +30,9 @@ public class Box implements Serializable{
     private int ballVx, ballVy;
     private Random rand = new Random();
 
-    int playerScore=0;
+    int rightPlayerScore=0;
+    int leftPlayerScore=0;
+
     private boolean running=false;
     
     public boolean isRunning()
@@ -99,6 +101,7 @@ public class Box implements Serializable{
         ballLoc.x = ballLoc.x + ballVx;
         ballLoc.y = ballLoc.y + ballVy;
 
+
         // check against right wall
         if (ballLoc.x + ballRadius > boxUpperRight.x)
         {
@@ -121,15 +124,18 @@ public class Box implements Serializable{
             {
                 // In hole and missed by paddle
 
-                playerScore += 1;
+                leftPlayerScore +=1;
+                MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
+
                 running= false;
                 System.out.println("In Hole and missed by paddle");
             }
         }
 
 
+        //checking against left wall
 
-        if (ballLoc.x + ballRadius < boxUpperLeft.x)
+        if (ballLoc.x - ballRadius < boxUpperLeft.x)
         {
             if (ballLoc.y <= leftHoleUpper.y || ballLoc.y >= leftHoleLower.y )
             {
@@ -142,7 +148,7 @@ public class Box implements Serializable{
             else if (ballLoc.y >= paddleLoc[1].y-paddleWidth/2 &&
                     ballLoc.y <= paddleLoc[1].y + paddleWidth/2)
             {
-                // In hole but bounces off right paddle
+                // In hole but bounces off left paddle
                 ballVx *= -1;
                 ballLoc.x = boxUpperLeft.x + ballRadius;
                 System.out.println("In Hole and hits paddle");
@@ -151,7 +157,8 @@ public class Box implements Serializable{
             {
                 // In hole and missed by paddle
 
-                playerScore += 1;
+                rightPlayerScore += 1;
+                MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
                 running= false;
                 System.out.println("In Hole and missed by paddle");
             }
