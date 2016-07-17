@@ -152,6 +152,7 @@ public class Box implements Serializable {
     }
 
     public void removePowerSpeed(){
+        System.out.println("Removed Power Speed");
         if (ballVx < 0) {
             ballVx += powerAmount;
         } else {
@@ -210,8 +211,19 @@ public class Box implements Serializable {
 
                 turnOffPowerShot();
 
-                leftPlayerScore += 1;
-                MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
+                String powerShotTitle = "Power Shot!@!";
+
+                if(MyGame.clients.size() > 1){
+
+                    GamePanel.scored = true;
+                    GamePanel.scoringPlayer = MyGame.clients.get(1);
+
+                    leftPlayerScore += 1;
+
+                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + leftPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + rightPlayerScore);
+
+                }
+
 
                 running = false;
                 System.out.println("In Hole and missed by paddle");
@@ -245,8 +257,18 @@ public class Box implements Serializable {
 
                 turnOffPowerShot();
 
-                rightPlayerScore += 1;
-                MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
+
+                if(MyGame.clients.size() > 1){
+
+                    leftPlayerScore += 1;
+
+                    GamePanel.scored = true;
+                    GamePanel.scoringPlayer = MyGame.clients.get(0);
+
+                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + leftPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + rightPlayerScore);
+
+                }
+
                 running = false;
                 System.out.println("In Hole and missed by paddle");
             }

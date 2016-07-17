@@ -11,10 +11,9 @@ import java.util.ArrayList;
 
 public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
 
-    private static final long serialVersionUID = 1L;
 
 
-    private ArrayList<String> clients = new ArrayList<String>();
+    public static ArrayList<String> clients = new ArrayList<String>();
     public Box box = new Box();
 
     transient GameControl gameControl;
@@ -24,6 +23,10 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         gameControl =g;
         Thread t = new Thread(this);
         t.start();
+
+
+
+
     }
 
     public int getMyIndex(String name)
@@ -37,7 +40,14 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         if (myGameInput.command == MyGameInput.CONNECTING && clients.size() < 2)
         {
             clients.add(myGameInput.name);
-            Box.players.add(myGameInput.name);
+
+            if (MyGame.clients.size() == 1){
+                MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + "Waiting For Player 2...");
+
+            } else if (MyGame.clients.size() > 1){
+                MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + MyGame.clients.get(1) + "'s" + " Score: " + 0);
+            }
+
 
         }
 

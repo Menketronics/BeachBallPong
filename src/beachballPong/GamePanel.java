@@ -33,6 +33,11 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public BufferedImage image;
 
+    static String scoringPlayer = "";
+
+    static boolean scored = false;
+
+
 
     int game_top, game_bottom, game_left, game_right;
     Color[] paddleColors = {Color.green, Color.red};
@@ -109,10 +114,23 @@ public class GamePanel extends JPanel implements KeyListener {
         } else {
 
             if (!box.isRunning()) {
-                String restart = "Click Mouse to play";
-                repaint();
 
-                g.drawString(restart, d.width/2-fm.stringWidth(restart)/2, d.height/2);
+                System.out.println(scored);
+                if (scored == false) {
+                    String restart = "Click Mouse to play";
+                    repaint();
+
+                    g.drawString(restart, d.width/2-fm.stringWidth(restart)/2, d.height/2);
+
+
+                } else {
+                    String restart = scoringPlayer + " scored!";
+
+                    repaint();
+                    g.drawString(restart, d.width/2-fm.stringWidth(restart)/2, d.height/2);
+
+                }
+
 
 
             }
