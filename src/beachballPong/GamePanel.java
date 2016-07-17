@@ -20,6 +20,7 @@ import java.io.IOException;
 public class GamePanel extends JPanel implements KeyListener {
 
     Box box = null;
+
     Image offScreenImage = null;
     Dimension previousSize = null;
 
@@ -115,7 +116,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
             if (!box.isRunning()) {
 
-                System.out.println(scored);
                 if (scored == false) {
                     String restart = "Click Mouse to play";
                     repaint();
@@ -135,7 +135,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
             }
 
-            if (Box.powerShot == true){
+            if (box.powerShot == true){
 
                 Font powerTitle = new Font("Arial",Font.BOLD, d.height/10);
                 fm = getFontMetrics(powerTitle);

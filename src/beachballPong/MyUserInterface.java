@@ -17,7 +17,7 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface, Ac
 
 
     GamePlayer myGamePlayer;
-    String myName;
+    static String myName;
     MyGameInput myGameInput = new MyGameInput();
 
     private JMenuBar jMenuBar;
@@ -36,6 +36,9 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface, Ac
     public void startUserInterface(GamePlayer player) {
         myGamePlayer = player;
         myName = myGamePlayer.getPlayerName();
+
+        System.out.println(myName);
+
         myGameInput.setName(myName);
         myGameInput.setCmd(MyGameInput.CONNECTING);
         myGamePlayer.sendMessage(myGameInput);

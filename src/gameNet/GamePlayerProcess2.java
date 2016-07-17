@@ -27,7 +27,8 @@ class GamePlayerProcess2 extends Thread {
        try {
             
             in = new ObjectInputStream(sock.getInputStream());
-            Object inputObj;          
+
+            Object inputObj;
    
             while ((inputObj = in.readObject()) != null) // Read from socket 
             {
@@ -42,7 +43,7 @@ class GamePlayerProcess2 extends Thread {
        catch (Exception e) 
            {
                 System.out.println("GamePlayerProcess2.run Err: " + e);
-                //e.printStackTrace();
+                e.printStackTrace();
            }
        try
        { // I'm annoyed that I need try ... catch to keep the compiler happy here

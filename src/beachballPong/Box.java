@@ -48,7 +48,8 @@ public class Box implements Serializable {
 
     int strokeWidthAdjustment = 1;
     int strokeWidthAdjustmentX = 15;
-    int powerAmount =60;
+    double POWER_AMOUNT = 75;
+
 
     static ArrayList<String> players;
 
@@ -120,19 +121,21 @@ public class Box implements Serializable {
 
     }
 
-    public void turnOnPowerShotIfKeyHeld(){
-        if (powerKeyHeld == true) {
+    public void turnOnPowerShotIfKeyHeld() {
+
+
+        if (powerKeyHeld) {
             if (ballVx < 0) {
-                ballVx -= powerAmount;
+                ballVx -= POWER_AMOUNT;
             } else {
-                ballVx += powerAmount;
+                ballVx += POWER_AMOUNT;
             }
 
-            if (ballVy < 0) {
-                ballVy -= powerAmount;
-            } else {
-                ballVy += powerAmount;
-            }
+//            if (ballVy < 0) {
+//                ballVy -= POWER_AMOUNT;
+//            } else {
+//                ballVy += POWER_AMOUNT;
+//            }
             powerShot = true;
             try {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("TOX_Space_Wah.wav"));
@@ -140,37 +143,36 @@ public class Box implements Serializable {
                 clip.open(audioInputStream);
                 clip.start();
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
 
             }
 
 
-
         }
 
     }
 
-    public void removePowerSpeed(){
+    public void removePowerSpeed() {
         System.out.println("Removed Power Speed");
         if (ballVx < 0) {
-            ballVx += powerAmount;
+            ballVx += POWER_AMOUNT;
         } else {
-            ballVx -= powerAmount;
+            ballVx -= POWER_AMOUNT;
         }
 
-        if (ballVy < 0) {
-            ballVy += powerAmount;
-        } else {
-            ballVy -= powerAmount;
-        }
+//        if (ballVy < 0) {
+//            ballVy += POWER_AMOUNT;
+//        } else {
+//            ballVy -= POWER_AMOUNT;
+//        }
         powerShot = false;
     }
 
-    public void turnOffPowerShot (){
+    public void turnOffPowerShotIfOn() {
 
 
-        if (powerShot == true){
+        if (powerShot == true) {
             removePowerSpeed();
         }
 
@@ -182,9 +184,6 @@ public class Box implements Serializable {
         ballLoc.x = ballLoc.x + ballVx;
         ballLoc.y = ballLoc.y + ballVy;
 
-//        System.out.println(powerKeyHeld);
-
-
 
         // check against right wall
 
@@ -193,7 +192,7 @@ public class Box implements Serializable {
                 // hits wall
                 ballVx *= -1;
 
-               turnOffPowerShot();
+                turnOffPowerShotIfOn();
 
                 ballLoc.x = boxUpperRight.x - ballRadius;
             } else if (ballLoc.y >= paddleLoc[0].y - paddleWidth / 2 &&
@@ -201,26 +200,35 @@ public class Box implements Serializable {
 
                 // In hole but bounces off right paddle
                 ballVx *= -1;
+                if (MyGame.clients.get(0).equals(MyUserInterface.myName)) {
+                    turnOnPowerShotIfKeyHeld();
+                }
 
-                turnOnPowerShotIfKeyHeld();
+                System.out.println(MyUserInterface.myName);
+                System.out.println(MyGame.clients.get(0));
+
 
                 ballLoc.x = boxUpperRight.x - ballRadius;
                 System.out.println("In Hole and hits paddle");
             } else {
                 // In hole and missed by paddle
 
-                turnOffPowerShot();
+                //**********************************************************************
+                //                           MARK:RIGHT HOLE
+                //**********************************************************************
+
+                turnOffPowerShotIfOn();
 
                 String powerShotTitle = "Power Shot!@!";
 
-                if(MyGame.clients.size() > 1){
+                if (MyGame.clients.size() > 1) {
 
                     GamePanel.scored = true;
                     GamePanel.scoringPlayer = MyGame.clients.get(1);
 
                     leftPlayerScore += 1;
 
-                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + leftPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + rightPlayerScore);
+                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + rightPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + leftPlayerScore);
 
                 }
 
@@ -238,7 +246,7 @@ public class Box implements Serializable {
                 // hits wall
                 ballVx *= -1;
 
-               turnOffPowerShot();
+                turnOffPowerShotIfOn();
 
                 ballLoc.x = boxUpperLeft.x + ballRadius;
 
@@ -248,24 +256,32 @@ public class Box implements Serializable {
                 // In hole but bounces off left paddle
                 ballVx *= -1;
 
-                turnOnPowerShotIfKeyHeld();
+                if (MyGame.clients.size() > 1) {
+                    if (MyGame.clients.get(1).equals(MyUserInterface.myName)) {
+                        turnOnPowerShotIfKeyHeld();
+                    }
+                }
 
                 ballLoc.x = boxUpperLeft.x + ballRadius;
                 System.out.println("In Hole and hits paddle");
             } else {
                 // In hole and missed by paddle
 
-                turnOffPowerShot();
+                // **********************************************************************
+                //                           MARK:LEFT HOLE
+                //**********************************************************************
+
+                turnOffPowerShotIfOn();
 
 
-                if(MyGame.clients.size() > 1){
+                if (MyGame.clients.size() > 1) {
 
-                    leftPlayerScore += 1;
+                    rightPlayerScore += 1;
 
                     GamePanel.scored = true;
                     GamePanel.scoringPlayer = MyGame.clients.get(0);
 
-                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + leftPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + rightPlayerScore);
+                    MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + rightPlayerScore + " " + MyGame.clients.get(1) + "'s" + " Score: " + leftPlayerScore);
 
                 }
 

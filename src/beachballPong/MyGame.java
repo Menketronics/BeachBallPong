@@ -41,10 +41,15 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         {
             clients.add(myGameInput.name);
 
+
+
             if (MyGame.clients.size() == 1){
                 MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + "Waiting For Player 2...");
 
             } else if (MyGame.clients.size() > 1){
+                System.out.println(MyGame.clients.get(1));
+
+
                 MyUserInterface.scoreLabel.setText(MyGame.clients.get(0) + "'s" + " Score: " + 0 + " " + MyGame.clients.get(1) + "'s" + " Score: " + 0);
             }
 
