@@ -3,11 +3,10 @@ package beachballPong;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.Point;
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Box implements Serializable {
@@ -49,8 +48,9 @@ public class Box implements Serializable {
 
     int strokeWidthAdjustment = 1;
     int strokeWidthAdjustmentX = 15;
-    int powerAmount =50;
+    int powerAmount =60;
 
+    static ArrayList<String> players;
 
 
     public boolean isRunning() {
@@ -120,7 +120,7 @@ public class Box implements Serializable {
 
     }
 
-    public void checkIfPowerKeyHeld (){
+    public void turnOnPowerShotIfKeyHeld(){
         if (powerKeyHeld == true) {
             if (ballVx < 0) {
                 ballVx -= powerAmount;
@@ -146,6 +146,7 @@ public class Box implements Serializable {
             }
 
 
+
         }
 
     }
@@ -165,6 +166,15 @@ public class Box implements Serializable {
         powerShot = false;
     }
 
+    public void turnOffPowerShot (){
+
+
+        if (powerShot == true){
+            removePowerSpeed();
+        }
+
+    }
+
     public void update() {
         if (!running)
             return;
@@ -182,9 +192,7 @@ public class Box implements Serializable {
                 // hits wall
                 ballVx *= -1;
 
-                if (powerShot == true){
-                    removePowerSpeed();
-                }
+               turnOffPowerShot();
 
                 ballLoc.x = boxUpperRight.x - ballRadius;
             } else if (ballLoc.y >= paddleLoc[0].y - paddleWidth / 2 &&
@@ -193,12 +201,14 @@ public class Box implements Serializable {
                 // In hole but bounces off right paddle
                 ballVx *= -1;
 
-                checkIfPowerKeyHeld();
+                turnOnPowerShotIfKeyHeld();
 
                 ballLoc.x = boxUpperRight.x - ballRadius;
                 System.out.println("In Hole and hits paddle");
             } else {
                 // In hole and missed by paddle
+
+                turnOffPowerShot();
 
                 leftPlayerScore += 1;
                 MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);
@@ -216,9 +226,8 @@ public class Box implements Serializable {
                 // hits wall
                 ballVx *= -1;
 
-                if (powerShot == true){
-                    removePowerSpeed();
-                }
+               turnOffPowerShot();
+
                 ballLoc.x = boxUpperLeft.x + ballRadius;
 
                 System.out.println("hitting wall");
@@ -227,12 +236,14 @@ public class Box implements Serializable {
                 // In hole but bounces off left paddle
                 ballVx *= -1;
 
-                checkIfPowerKeyHeld();
+                turnOnPowerShotIfKeyHeld();
 
                 ballLoc.x = boxUpperLeft.x + ballRadius;
                 System.out.println("In Hole and hits paddle");
             } else {
                 // In hole and missed by paddle
+
+                turnOffPowerShot();
 
                 rightPlayerScore += 1;
                 MyUserInterface.scoreLabel.setText("Jacob" + "'s" + " Score: " + rightPlayerScore + " " + "Player 2's" + " Score: " + leftPlayerScore);

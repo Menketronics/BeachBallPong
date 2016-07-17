@@ -110,6 +110,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
             if (!box.isRunning()) {
                 String restart = "Click Mouse to play";
+                repaint();
 
                 g.drawString(restart, d.width/2-fm.stringWidth(restart)/2, d.height/2);
 

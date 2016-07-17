@@ -6,6 +6,7 @@ import gameNet.GamePlayer;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -40,15 +41,11 @@ public class MyUserInterface extends JFrame implements GameNet_UserInterface, Ac
         myGamePlayer.sendMessage(myGameInput);
 
         updateGamePanel();
-        try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Timeless Techno DEMO.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        ArrayList mySounds= new ArrayList();
+        mySounds.add("Timeless Techno DEMO.wav");
+
+        SoundPlayer mySoundPlayer = new SoundPlayer(mySounds, true);
 
     }
 

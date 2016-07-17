@@ -37,6 +37,8 @@ public class MyGame extends GameNet_CoreGame implements Runnable, Serializable {
         if (myGameInput.command == MyGameInput.CONNECTING && clients.size() < 2)
         {
             clients.add(myGameInput.name);
+            Box.players.add(myGameInput.name);
+
         }
 
         switch(myGameInput.command)
